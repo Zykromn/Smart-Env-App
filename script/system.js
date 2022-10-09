@@ -5,6 +5,7 @@ let BMH_IconClose = $('.BMH-BurgerMenuClose');
 let BM_Icon = $('.Header-BurgerMenuIcon');
 let MD_Content = $(".MD-Content");
 let MI_Content = $(".MI-Content");
+let MF_Content = $(".MF-Content");
 let APP_SwipeStart = 0;
 let APP_SwipeEnd = 0;
 
@@ -19,8 +20,10 @@ const SES_UOFNameList= {
 const SED_UOFIdList = {
     "d0000": "cm.",
     "d0001": "%",
-    "d0002": "C.",
-    "d0004": "True"
+    "d0002": "C."
+}
+const SEF_UOFValList = {
+    "d0004": {1: "LEAK DETECTED", 0: "Normal"}
 }
 
 
@@ -31,9 +34,9 @@ $('body').on('touchstart', function (event) {
 })
 $('body').on('touchend', function (event) {
     APP_SwipeEnd = event.originalEvent.changedTouches[0].pageX;
-    if (APP_SwipeEnd - APP_SwipeStart >= 100) {
+    if (APP_SwipeEnd - APP_SwipeStart >= 300) {
         BM_Show();
-    } else if (APP_SwipeStart - APP_SwipeEnd >= 100) {
+    } else if (APP_SwipeStart - APP_SwipeEnd >= 300) {
         BM_Hide();
     }
 })
@@ -87,6 +90,7 @@ function HTTP_Working(HTTP_Response) {
         window.location.href = 'server-error.html';
     } else {
         MD_Content.html("");
+        MF_Content.html("");
         if (SYS_HTTPRequestCount === 1) {MI_Content.html("")}
 
         for (let ITEM_JSONResponse in JSON_ResponseINFOOBJ) {
@@ -98,8 +102,39 @@ function HTTP_Working(HTTP_Response) {
                     </div>
                 `;
                 MD_Content.html(MD_Content.html() + HTML_InfoPart);
+            } else if (ITEM_JSONResponse in SEF_UOFValList) {
+                function SES_UOFValUi() {
+                    let HTML_DivInfoPart;
+
+                    if (JSON_ResponseINFOOBJ[ITEM_JSONResponse]){
+                        HTML_DivInfoPart = `
+                            <div class="MF-ItemValue" style="margin-right: 2vw; color: #ff0000; font-weight: 900;">
+                                ${SEF_UOFValList[ITEM_JSONResponse][JSON_ResponseINFOOBJ[ITEM_JSONResponse]]}
+                            </div>
+
+                        `;
+                    } else {
+                        HTML_DivInfoPart = `
+                            <div class="MF-ItemValue" style="margin-right: 2vw"> 
+                                ${SEF_UOFValList[ITEM_JSONResponse][JSON_ResponseINFOOBJ[ITEM_JSONResponse]]}
+                            </div>
+                        `;
+                    }
+
+                    return HTML_DivInfoPart
+                }
+
+                let HTML_InfoPart = `
+                    <div class="MF-Item" style="display: flex; align-items: center; justify-content: space-between;">
+                        <div class="MF-ItemHeader"> ${SES_UOFNameList[ITEM_JSONResponse]} </div>
+                            ${SES_UOFValUi()}
+                    </div>
+                `;
+
+                MF_Content.html(MF_Content.html() + HTML_InfoPart);
             } else if (ITEM_JSONResponse in SES_UOFNameList && SYS_HTTPRequestCount === 1) {
                 let HTML_InfoPartSwipeValue;
+
                 function SYS_MIContent() {
                     if (JSON_ResponseINFOOBJ[ITEM_JSONResponse] === 1) {
                         return "checked";
@@ -107,16 +142,16 @@ function HTTP_Working(HTTP_Response) {
                         return "";
                     }
                 }
+
                 HTML_InfoPartSwipeValue = SYS_MIContent();
                 let HTML_InfoPart = `
-                    <div class="MI-Item">
-                        <div class="MI-ItemHeader"> ${SES_UOFNameList[ITEM_JSONResponse]} </div>
-
-                        <div class="form-check form-switch">
-                            <input class="form-check-input MII-${ITEM_JSONResponse}" type="checkbox" role="switch" id="flexSwitchCheckDefault" ${HTML_InfoPartSwipeValue}>
-                        </div>
-                    </div>
-                `;
+                       <div class="MI-Item" style="display: flex; align-items: center; justify-content: space-between;">
+                           <div class="MI-ItemHeader"> ${SES_UOFNameList[ITEM_JSONResponse]} </div>
+                           <div class="form-check form-switch">
+                               <input class="form-check-input MII-${ITEM_JSONResponse}" style="height: 3vh; width: 10vw; margin-right: 2vw;" type="checkbox" role="switch" id="flexSwitchCheckDefault" ${HTML_InfoPartSwipeValue}>
+                           </div>
+                       </div>
+                   `;
                 MI_Content.html(MI_Content.html() + HTML_InfoPart);
             }
         }
