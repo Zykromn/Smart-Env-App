@@ -16,7 +16,7 @@ $(".FORM-Button").click(FORM_OnHandle);
 function FORM_OnHandle() {
     let xhr = new XMLHttpRequest();
     let HTTP_RequestContent = `{"type":"devicecheck","systemid":"${FORM_ValuesSYSTEMID.val()}","password":"${FORM_ValuesPASSWORD.val()}"}`;
-    xhr.open('GET', `http://192.168.0.138:1337/${encodeURIComponent(HTTP_RequestContent)}`, true);
+    xhr.open('GET', `https://adaptive-married-akubra.glitch.me/${encodeURIComponent(HTTP_RequestContent)}`, true);
     xhr.withCredentials = false;
     xhr.send();
 

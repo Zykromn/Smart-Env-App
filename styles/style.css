@@ -24,7 +24,7 @@ header{
     align-items: center;
 }
     .Header-Name{
-        margin-left: 3vw;
+        margin: 0 0 0 3vw;
         font-size: 3vh;
     }
 

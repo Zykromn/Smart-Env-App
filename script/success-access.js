@@ -1,5 +1,5 @@
 new Granim({
-    element: '#canvas-basic',
+    element: '#CANVAS-Gradient',
     direction: 'diagonal',
     isPausedWhenNotInView: true,
     states : {

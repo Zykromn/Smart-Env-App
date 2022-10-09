@@ -66,7 +66,6 @@ header{
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    flex-direction: row;
 }
     .Header-BurgerMenuIcon{
         height: 5vh;
@@ -103,6 +102,10 @@ main{
             display: flex;
             justify-content: space-between;
         }
-.form-check-input{
-    color: #026573;
-}
+            .MI-ItemHeader{
+                margin-left: 2vw;
+            }
+            .MI-Input{
+                width: 20vh;
+            }
+
