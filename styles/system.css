@@ -77,7 +77,7 @@ main{
     align-items: flex-start;
     flex-wrap: wrap;
 }
-    .MD-Content, .MI-Content, .MF-Content{
+    .MD-Content, .MI-Content, .MM-Content{
         width: 75vw;
         height: max-content;
         margin-top: 5vh;
@@ -97,17 +97,12 @@ main{
             .MD-Item > img{
                 height: 5vh;
             }
-        .MF-Item{
+        .MM-Item, .MI-Item{
             width: 100%;
             display: flex;
             justify-content: space-between;
         }
-        .MI-Item{
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-        }
-            .MI-ItemHeader, .MF-ItemHeader{
+            .MM-ItemHeader, .MI-ItemHeader{
                 font-size: 3.5vh;
                 margin-left: 2vw;
             }
